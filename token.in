@@ -1,0 +1,47 @@
+A-Z
+a-z
+_
+0-9
+
+# Operators
++
+-
+*
+/
+=
+<
+<=
+>
+>=
+==
+<>
+
+# Separatos
+(
+)
+{
+}
+[
+]
+space
+new_line
+
+# Reserved words
+bool
+int
+char
+str
+list
+
+test
+while
+else
+
+and
+or
+
+read
+write
+
+T
+F

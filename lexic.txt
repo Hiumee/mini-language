@@ -1,0 +1,20 @@
+non_zero_digit = "1" | "2" | ... | "9"
+zero = "0"
+digit = zero | non_zero_digit
+
+letter = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" | "_"
+
+identifier = letter {(letter|digit)}
+
+
+Constants:
+
+bool_constant = "T" | "F"
+
+int_constant = ("+"|"-") (zero | non_zero_digit {digit})
+
+character = letter | digit
+
+char_constant = "'" character "'"
+
+str_const = """ {character} """

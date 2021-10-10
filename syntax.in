@@ -1,0 +1,40 @@
+program = {statement new_line}
+
+new_line = <new line>   \n
+
+statement = declaration_stmt |
+            assign_stmt      |
+            conditional_stmt |
+            io_stmt
+
+declaration_stmt = type IDENTIFIER
+
+id = IDENTIFIER | id "[" arithmetic_exp "]"
+
+type = basic_type | list_type
+basic_type = "int" | "bool" | "string" | "char"
+list_type = "list" basic_type
+
+assign_stmt = id "=" expression
+
+conditional_stmt = if_stament | while_stmt
+
+stmt_block = "{" program "}"
+
+if_stmt = "test" logic_exp stmt_block ["else" stmt_block]
+while_stmt = "while" logic_exp stmt_block
+
+io_stmt = read_stmt | write_stmt
+
+read_stmt = "read" id
+write_stmt = "write" expression
+
+expression = arithmetic_exp | logic_exp
+
+arithmetic_exp = arithmetic_exp ("+" | "-") arithmetic_exp | term
+term = term ("*" | "/") term | factor
+factor = "(" arithmetic_exp ")" | id | INT_CONSTANT
+
+logic_exp = "(" logic_exp ("and"|"or"|"=="|"<>") logic_exp ")" | BOOL_CONSTANT | numeric_relation
+
+numeric_relation = "(" arithmetic_exp ("<"|"<="|"=="|"<>"|">="|">") arithmetic_exp ")"
