@@ -11,7 +11,7 @@ Constants:
 
 bool_constant = "T" | "F"
 
-int_constant = ("+"|"-") (zero | non_zero_digit {digit})
+int_constant = zero | ["-"] non_zero_digit {digit}
 
 character = letter | digit
 

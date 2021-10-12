@@ -104,7 +104,7 @@ character = letter | digit
 identifier = letter {(letter|digit)}
 
 BOOL_CONSTANT = "T" | "F"
-INT_CONSTANT = ("+"|"-") (zero | non_zero_digit {digit})
+INT_CONSTANT = zero | ["-"] non_zero_digit {digit}
 CHAR_CONSTANT = "'" character "'"
 STR_CONSTANT = """ {character} """
 ```
