@@ -1,0 +1,28 @@
+# Get the average of n numbers
+
+int count
+int sum
+int i
+
+list int numbers
+
+sum = 0
+
+read count
+i = count
+
+while (i > 0) {
+    i = i - 1
+    int aux
+    read aux
+    numbers[i] = aux
+}
+
+i = count
+
+while (i > 0) {
+    i = i - 1
+    sum = sum + numbers[i]
+}
+
+write sum / count

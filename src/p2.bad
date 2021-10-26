@@ -1,0 +1,20 @@
+# Get n-th fibonacci number
+
+int last_1
+int last_2
+int index
+
+last_1 = 1
+last_2 = 1
+
+read index
+
+while (index > 2) {
+    int new
+    new = last_1 + last_2
+    last_2 = last_1
+    last_1 = new
+    index = index - 1
+}
+
+write last_1

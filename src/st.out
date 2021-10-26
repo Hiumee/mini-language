@@ -1,0 +1,10 @@
+TreeNode(value, [leftNode], [rightNode])
+    used to store information about the tree structure, the position in ST and the value itself
+
+BinrayTree(compareFn)
+    a binary tree structure used for adding and finding nodes with given values, a position will be generated if the value is new
+
+compareFn - a function to compare the values
+
+SymbolTable
+    the class itself, used to store string-position pairs
