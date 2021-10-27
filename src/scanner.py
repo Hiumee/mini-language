@@ -46,8 +46,7 @@ def generate_pif(tokens):
         else:
             raise Exception(f"LEXICAL ERROR:\n`{token}` at line {line_number}")
 
-    print(sts)
-    return pif
+    return pif,sts
 
 def read_file(file_name):
     with open(file_name, 'r') as f:
@@ -77,7 +76,7 @@ def process_program(file_name):
     return generate_pif(tokens)
 
 def test_output_program(program):
-    data = process_program(program)
+    data, symbol_table = process_program(program)
 
     for token, idd in data:
         if token == "identifier":
@@ -89,7 +88,7 @@ def test_output_program(program):
 g = ""
 def test_program(program):
     try:
-        result = process_program(program)
+        result, st = process_program(program)
         global g
         g = result
     except Exception as e:
@@ -102,13 +101,15 @@ def test_program(program):
     for token, idd in result:
         to_write += f"{token}:{idd};"
 
+    st_write = ""
+    for typ in st:
+        st_write += f"{typ}:{st[typ]};"
+
     with open("pif.out", "w") as f:
         f.write(to_write)
 
-    with open("doc.txt", "r") as f:
-        text = f.read()
     with open("st.out", "w") as f:
-        f.write(text)
+        f.write(st_write)
 
 def read_pif(pif_file):
     with open(pif_file, "r") as f:
