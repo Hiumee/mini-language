@@ -46,6 +46,7 @@ def generate_pif(tokens):
         else:
             raise Exception(f"LEXICAL ERROR:\n`{token}` at line {line_number}")
 
+    print(sts)
     return pif
 
 def read_file(file_name):
@@ -93,6 +94,8 @@ def test_program(program):
         g = result
     except Exception as e:
         print(e)
+        return
+
     print("Lexically correct")
 
     to_write = ""

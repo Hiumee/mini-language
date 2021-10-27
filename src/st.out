@@ -1,3 +1,4 @@
+SYMBOL TABLE:
 TreeNode(value, [leftNode], [rightNode])
     used to store information about the tree structure, the position in ST and the value itself
 
@@ -8,3 +9,22 @@ compareFn - a function to compare the values
 
 SymbolTable
     the class itself, used to store string-position pairs
+
+
+SCANNER:
+The scanner has a few functions like:
+ - detect : detects the type of a token given the string representation
+ - genereate_pif : given a list of tokens it categorises, checks for lexical errors and constructs the PIF
+ - process_program : given a file name it splits the text into tokens and generates the PIF
+ - test_output_program : used for reconstructring a program from PIF - for testing purposes
+ - test_program : checks if the program is valid from a lexical point of view
+ - read_pif : reads a file and reconstructs the in memory structure of PIF
+
+Regex used:
+ - (0|(-?[1-9][0-9]*)) - for numbers, checks if the string is a sequence of digits that is not starting with 0 or just 0
+ - [a-zA-Z_][a-zA-Z_0-9]* - for identificators, matches any alpha-numberic sequence that starts with a non-digit
+ - ([A-Za-z_0-9]+)|(<=|>=|==|<>|[+\-*/=<>()\[\]{} \n]) - used to separate tokens, it matches groups of:
+  - alpha-numeric sequences (for constants, identifiers and reserved words)
+  - operators
+  - separators
+  - the multi-character operators are matched before single-character ones
