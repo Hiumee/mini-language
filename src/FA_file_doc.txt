@@ -1,0 +1,17 @@
+file_content = states "\n" alphabet "\n" transitions "\n" initial_state "\n" final_states
+
+letter = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+digit = "0" | "1" | "2" | ... | "9"
+
+states = state ["," states]
+state = letter
+
+alphabet = symbol ["," alphabet]
+symbol = letter | digit
+
+transitions = transition [";" transitions]
+transition = state "," symbol "," state
+
+initian_state = state
+
+final_states = states

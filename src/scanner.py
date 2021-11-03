@@ -1,10 +1,14 @@
 import re
 from symbol_table import SymbolTable
+from finiteautomata import FiniteAutomata
 
 RESERVED_WORDS = ["bool","int","char","str","list","test","while","else","and","or","read","write"]
 OPERATORS = ["+","-","*","/","=","<",">"]
 MULTICHAR_OP = ["<=",">=","==","<>"]
 SEPARATORS = ["(",")","[","]","{","}"," ","\n"]
+
+identifier_fa = FiniteAutomata("FA_identifier.fa")
+intconst_fa = FiniteAutomata("FA_intconst.fa")
 
 def detect(token):
     # Output:
@@ -22,10 +26,15 @@ def detect(token):
     if token in SEPARATORS:
         return "separator"
 
-    if token == "T" or token == "false" or re.fullmatch(r"(0|(-?[1-9][0-9]*))", token):
+    if token == "T" or token == "false": # or re.fullmatch(r"(0|(-?[1-9][0-9]*))", token):
         return "constant"
 
-    if re.fullmatch(r"[a-zA-Z_][a-zA-Z_0-9]*", token):
+    if intconst_fa.check_sequence(token):
+        return "constant"
+
+    #if re.fullmatch(r"[a-zA-Z_][a-zA-Z_0-9]*", token):
+    #    return "identifier"
+    if identifier_fa.check_sequence(token):
         return "identifier"
 
     return "unknown"
@@ -37,6 +46,7 @@ def generate_pif(tokens):
 
     for token, line_number in tokens:
         token_type = detect(token)
+
         if token_type in ("reserved", "operator", "separator"):
             pif.append((token, 0))
         elif token_type in ("identifier", "constant"):

@@ -11,7 +11,7 @@ read number2
 read number3
 
 test (number1>number2) {
-    max = number1 + 4
+    max = number1
 }
 else {
     max = number2
