@@ -1,3 +1,12 @@
+Finite automata class:
+ - constructor - takes a file and returns the FA
+ - parse_file - reads the FA from a file
+ - _check - checking logic
+ - check_sequence - wrapper method used to check a sequence
+
+
+FA file format:
+
 file_content = states "\n" alphabet "\n" transitions "\n" initial_state "\n" final_states
 
 letter = "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
