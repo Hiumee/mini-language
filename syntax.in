@@ -1,4 +1,5 @@
-program = {statement new_line}
+program = statement A
+A = new_line statement | e
 
 new_line = <new line>   \n
 
@@ -17,11 +18,12 @@ list_type = "list" basic_type
 
 assign_stmt = id "=" expression
 
-conditional_stmt = if_stament | while_stmt
+conditional_stmt = if_statement | while_stmt
 
 stmt_block = "{" program "}"
 
-if_stmt = "test" logic_exp stmt_block ["else" stmt_block]
+if_stmt = "test" logic_exp stmt_block B
+B = "else" stmt_block B | e
 while_stmt = "while" logic_exp stmt_block
 
 io_stmt = read_stmt | write_stmt

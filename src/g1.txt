@@ -1,7 +1,5 @@
-S A B C D
-a b
-S = a A | a C
-A = A B
-B = b
-C = a C | C D
-D = b
+S A
+a b c
+S = a A | b A
+A = b B | c B
+B = a A | c

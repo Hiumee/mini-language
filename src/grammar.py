@@ -5,6 +5,7 @@ class Grammar:
         self.nonTerminals = []
         self.terminals = []
         self.productions = {}
+        self.starting = ""
         self.read_from_file(filename)
 
     def read_from_file(self, filename):
@@ -16,11 +17,13 @@ class Grammar:
         for nonTerminal in data[0].split(" "):
             self.nonTerminals.append(nonTerminal)
 
+        self.starting = self.nonTerminals[0]
+
         for terminal in data[1].split(" "):
             self.terminals.append(terminal)
 
         for production in data[2:]:
-            sides = production.split("=")
+            sides = production.split("=", 1)
 
             left = sides[0].strip()
 
@@ -45,6 +48,9 @@ class Grammar:
             raise Exception("Given symbol is not a nonterminal")
 
         return self.productions[nonterminal]
+
+    def is_terminal(self, symbol):
+        return symbol in self.terminals
 
 
 if __name__ == "__main__":

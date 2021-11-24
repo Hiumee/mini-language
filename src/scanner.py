@@ -7,6 +7,7 @@ OPERATORS = ["+","-","*","/","=","<",">"]
 MULTICHAR_OP = ["<=",">=","==","<>"]
 SEPARATORS = ["(",")","[","]","{","}"," ","\n"]
 
+
 identifier_fa = FiniteAutomata("FA_identifier.fa")
 intconst_fa = FiniteAutomata("FA_intconst.fa")
 
@@ -121,6 +122,7 @@ def test_program(program):
     with open("st.out", "w") as f:
         f.write(st_write)
 
+
 def read_pif(pif_file):
     with open(pif_file, "r") as f:
         data = f.read()
@@ -138,4 +140,3 @@ def read_pif(pif_file):
 
     return read_data
 
-test_program("p1.bad")
