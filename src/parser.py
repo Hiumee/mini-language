@@ -51,8 +51,32 @@ class Parser:
                 print(self.working_stack)
                 print()
                 print("Parsing successful")
-            return True
+            return self.createTable()
 
+    def createTable(self):
+        table = {}
+        pos = 1
+        parent_stack = []
+        parent_stack.append([0,1])
+
+        for step in self.working_stack:
+            parent = parent_stack[-1]
+            parent_stack[-1][1] -= 1
+            if parent_stack[-1][1] == 0:
+                parent_stack = parent_stack[:-1]
+            table[pos] = {"info": step[0], "parent": parent[0], "right": 0}
+            if len(step) > 1:
+                parent_stack.append([pos, len(step[1])])
+            pos += 1
+
+        for i in range(1, len(self.working_stack)+1):
+            right = 0
+            for j in range(len(self.working_stack),0,-1):
+                if table[j]["parent"] == i:
+                    table[j]["right"] = right
+                    right = j
+
+        return table
 
     def expand(self):
         if self.debug:
@@ -120,6 +144,13 @@ class Parser:
         assert(position == self.position)
         assert(working_stack == self.working_stack)
         assert(input_stack == self.input_stack)
+
+def parsing_table_string(table):
+    s = ""
+    for k in table:
+        v = table[k]
+        s += f"{k},{v['info']},{v['parent']},{v['right']}\n"
+    return s
 
 # tests
 def test_expand():
@@ -201,16 +232,21 @@ def run_tests():
     test_success()
     print("Success passed")
     test_parser_success()
-    print("Parser success passed")
+    print("Parser correct passed")
     test_parser_fail()
-    print("Parser fail passed\n\n")
+    print("Parser incorrect passed\n\n")
 
 
 if __name__ == "__main__":
-    run_tests()
+    #run_tests()
     inp = "bcc"
     data = [(x,0) for x in inp]
     grammar = Grammar("g1.txt")
 
     parser = Parser(grammar, False)
-    parser.parse(data)
+    output_table = parser.parse(data)
+    print(output_table)
+    print(parsing_table_string(output_table))
+
+    with open("parsing.out", "w") as f:
+        f.write(parsing_table_string(output_table))
