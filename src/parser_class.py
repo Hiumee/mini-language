@@ -28,12 +28,14 @@ class Parser:
                 if self.position == len(data) and len(self.input_stack) == 0:
                     self.success()
                 else:
-                    if len(self.input_stack) > 0 and not self.grammar.is_terminal(self.input_stack[0][0]):
+                    if len(self.input_stack) > 0 and not self.grammar.is_terminal(self.input_stack[0]):
                         self.expand()
                     else:
                         if len(self.input_stack) > 0 and self.position < len(data) and self.input_stack[0] == data[self.position][0]:
                             self.advance()
                         else:
+                            print("Not found")
+                            print(data[self.position][0])
                             self.momentary_insuccess()
             else:
                 if self.state == StateMode.BACK:
@@ -81,7 +83,8 @@ class Parser:
     def expand(self):
         if self.debug:
             print("expand")
-        to_find = self.input_stack[0][0]
+        to_find = self.input_stack[0]
+        print(to_find)
         production = self.grammar.get_products_from_nonterminal(to_find)[0]
         self.working_stack.append(production)
         self.input_stack = production[1] + self.input_stack[1:]
@@ -243,7 +246,7 @@ if __name__ == "__main__":
     data = [(x,0) for x in inp]
     grammar = Grammar("g1.txt")
 
-    parser = Parser(grammar, False)
+    parser = Parser(grammar, True)
     output_table = parser.parse(data)
     print(output_table)
     print(parsing_table_string(output_table))

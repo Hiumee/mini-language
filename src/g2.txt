@@ -1,16 +1,16 @@
 program A statement delcaration_stmt assing_stmt conditional_stmt io_stmt id type basic_type list_type assing_stmt conditional_stmt stmt_block if_stmt while_stmt io_stmt read_stmt write_stmt expression arithemtic_exp term factor logic_exp numeric_relation
-[ ] \n + - * / = < <= == <> >= > ( ) { } int bool string char list test else read write C I and or
-program = new_line statement A
-A = new_line statement |
+[ ] \n + - * / = < <= == <> >= > ( ) { } int bool string char list test else read write C I and or identifier while
+program = statement A
+A = new_line statement | 
 new_line = \n
 statement = declaration_stmt | assing_stmt | conditional_stmt | io_stmt
-declaration_stmt = type I
-id = I | id [ arithmetic_exp ]
+declaration_stmt = type id
+id = identifier
 type = basic_type | list_type
 basic_type = int | bool | string | char
 list_type = list basic_type
 assing_stmt = id = expression
-conditional_stmt = if_statement | while_stmt
+conditional_stmt = if_stmt | while_stmt
 stmt_block = { program }
 if_stmt = test logic_exp stmt_block B
 B = else stmt_block B |

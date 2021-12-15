@@ -3,7 +3,7 @@
 class Grammar:
     def __init__(self, filename):
         self.nonTerminals = []
-        self.terminals = []
+        self.terminals = ['']
         self.productions = {}
         self.starting = ""
         self.read_from_file(filename)

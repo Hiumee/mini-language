@@ -33,8 +33,8 @@ def detect(token):
     if intconst_fa.check_sequence(token):
         return "constant"
 
-    #if re.fullmatch(r"[a-zA-Z_][a-zA-Z_0-9]*", token):
-    #    return "identifier"
+    if re.fullmatch(r"[a-zA-Z_][a-zA-Z_0-9]*", token):
+        return "identifier"
     if identifier_fa.check_sequence(token):
         return "identifier"
 
@@ -135,8 +135,10 @@ def read_pif(pif_file):
         if entry != "":
             split = entry.split(":")
             token = split[0]
+            if token == "\n":
+                token = "\\n"
             idd = int(split[1])
-            read_data.append((token, idd))
+            if token != " ":
+                read_data.append((token, idd))
 
     return read_data
-
