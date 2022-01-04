@@ -12,8 +12,7 @@ read number3
 
 test (number1>number2) {
     max = number1
-}
-else {
+} else {
     max = number2
 }
 

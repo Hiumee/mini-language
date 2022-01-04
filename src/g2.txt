@@ -1,7 +1,9 @@
-program A statement delcaration_stmt assing_stmt conditional_stmt io_stmt id type basic_type list_type assing_stmt conditional_stmt stmt_block if_stmt while_stmt io_stmt read_stmt write_stmt expression arithemtic_exp term factor logic_exp numeric_relation
-[ ] \n + - * / = < <= == <> >= > ( ) { } int bool string char list test else read write C I and or identifier while
-program = statement A
-A = new_line statement | 
+program A statement delcaration_stmt assing_stmt conditional_stmt io_stmt id type basic_type list_type assing_stmt conditional_stmt stmt_block if_stmt while_stmt io_stmt read_stmt write_stmt expression arithemtic_exp term factor logic_exp numeric_relation e
+[ ] \n + - * / = < <= == <> >= > ( ) { } int bool string char list test else read write C I and or identifier while constant
+program = statement optional_A
+A = new_line statement optional_A
+e =  
+optional_A = e | A
 new_line = \n
 statement = declaration_stmt | assing_stmt | conditional_stmt | io_stmt
 declaration_stmt = type id
@@ -11,20 +13,21 @@ basic_type = int | bool | string | char
 list_type = list basic_type
 assing_stmt = id = expression
 conditional_stmt = if_stmt | while_stmt
-stmt_block = { program }
+stmt_block = { optional_new_line program optional_new_line }
+optional_new_line = new_line |  | new_line optional_new_line
 if_stmt = test logic_exp stmt_block B
-B = else stmt_block B |
+B = e | else stmt_block B
 while_stmt = while logic_exp stmt_block
 io_stmt = read_stmt | write_stmt
 read_stmt = read id
 write_stmt = write expression
 expression = arithmetic_exp | logic_exp
-arithmetic_exp = arithmetic_exp sign
+arithmetic_exp = term | term sign term
 sign = + | -
-term = term sing2 term | factor
+term = factor | factor sing2 factor
 sing2 = * | /
-factor = ( arithmetic_exp ) | id | C
-logic_exp = ( logic_exp logic_operator logic_exp ) | C | numeric_relation
+factor =  id | constant | ( arithmetic_exp )
+logic_exp =  constant | numeric_relation
 logic_operator = and | or | == | <>
-numeric_relation = ( arithmetic_exp  arithmetic_operator arithmetic_exp )
-arithmetic_exp = < | <= | == | <> | >= | >
+numeric_relation = ( arithmetic_exp arithmetic_operator arithmetic_exp )
+arithmetic_operator = < | <= | == | <> | >= | >

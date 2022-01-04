@@ -7,6 +7,13 @@ class StateMode(Enum):
     FINAL = 3
     ERROR = 4
 
+def formatted(stack):
+    for i in stack:
+        if len(i) > 1:
+            print(f"{i[0]} -> {i[1]}")
+        else:
+            print(f"{i[0]}")
+
 class Parser:
     def __init__(self, grammar, debug = False):
         self.debug = debug
@@ -20,8 +27,8 @@ class Parser:
 
         while self.state != StateMode.FINAL and self.state != StateMode.ERROR:
             if self.debug:
-                print(self.state, self.position)
-                print(self.working_stack)
+                print(self.state, data[self.position:self.position+10])
+                print(formatted(self.working_stack[-5:]))
                 print(self.input_stack)
                 print()
             if self.state == StateMode.NORMAL:
@@ -31,11 +38,13 @@ class Parser:
                     if len(self.input_stack) > 0 and not self.grammar.is_terminal(self.input_stack[0]):
                         self.expand()
                     else:
-                        if len(self.input_stack) > 0 and self.position < len(data) and self.input_stack[0] == data[self.position][0]:
+                        if len(self.input_stack) > 0 and ((self.position < len(data) and self.input_stack[0] == data[self.position][0]) or self.input_stack[0] == ''):
+                            if self.input_stack[0] == '':
+                                self.position -= 1
                             self.advance()
                         else:
                             print("Not found")
-                            print(data[self.position][0])
+                            #print(data[self.position][0])
                             self.momentary_insuccess()
             else:
                 if self.state == StateMode.BACK:
@@ -92,6 +101,7 @@ class Parser:
     def advance(self):
         if self.debug:
             print("advance")
+
         self.position += 1
         self.working_stack = self.working_stack + [(self.input_stack[0],)]
         self.input_stack = self.input_stack[1:]
@@ -104,7 +114,9 @@ class Parser:
     def back(self):
         if self.debug:
             print("back")
-        self.position -= 1
+
+        if self.working_stack[-1][0] != '':
+            self.position -= 1
         self.input_stack.insert(0, self.working_stack[-1][0])
         self.working_stack = self.working_stack[:-1]
 
