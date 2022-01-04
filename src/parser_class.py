@@ -162,6 +162,8 @@ class Parser:
 
 def parsing_table_string(table):
     s = ""
+    if not table:
+        return
     for k in table:
         v = table[k]
         s += f"{k},{v['info']},{v['parent']},{v['right']}\n"
