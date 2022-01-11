@@ -1,0 +1,1 @@
+flex specif2.lxi && gcc lex.yy.c -o file.exe && file.exe < test.in 1> output.txt

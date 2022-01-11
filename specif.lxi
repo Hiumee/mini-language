@@ -1,0 +1,47 @@
+%option noyywrap
+%option caseless
+
+DIGIT [0-9]
+LETTER [A-Za-z_]
+ID {LETTER}({LETTER}|{DIGIT})*
+NUMBER "-"?[1-9]{DIGIT}*
+BOOL_CONSTANT "T"|"F"
+COMMENT "#".*\n
+CHARACTER "'"({LETTER}|{DIGIT})"'"
+STRING ["]({LETTER}|{DIGIT})*["]
+OPERATOR "<>"|"=="|">="|"<="|"-"|[+*/=<>]|"and"|"or"
+TYPE "bool"|"int"|"char"|"str"|"list"
+SEPARATOR [(){} ]|"["|"]"
+KEYWORD "test"|"while"|"else"|"read"|"write"
+
+%%
+
+{ID} printf(" An identifier: %s\n", yytext);
+
+{NUMBER} printf( " An integer: %s (%d)\n", yytext, atoi( yytext ) );
+
+{KEYWORD}  printf( " A keyword: %s\n", yytext );
+
+{TYPE} printf(" A type: %s\n", yytext);
+
+{BOOL_CONSTANT} printf(" A boolean constant: %s\n", yytext);
+
+{OPERATOR} printf( " An operator: %s\n", yytext ); 
+
+{SEPARATOR} printf(" A separator: %s\n", yytext);
+
+{COMMENT} printf("A comment\n");
+
+[ \t\n]+ /*nothing*/
+%%
+main( argc, argv ) 
+int argc; 
+char **argv; 
+{ 
+    ++argv, --argc; /* skip over program name */ 
+    if ( argc > 0 ) 
+    yyin = fopen( argv[0], "r" ); 
+    else 
+     yyin = stdin; 
+    yylex(); 
+} 

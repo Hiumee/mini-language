@@ -1,0 +1,94 @@
+Type: int
+Identifier: number1
+Type: int
+Identifier: number2
+Type: int
+Identifier: number3
+Type: int
+Identifier: max
+Reserved word: read
+Identifier: number1
+Reserved word: read
+Identifier: number2
+Reserved word: read
+Identifier: number3
+Reserved word: test
+Separator: (
+Identifier: number1
+Operator: >
+Identifier: number2
+Separator: )
+Separator: {
+Identifier: max
+Operator: =
+Identifier: number1
+Separator: }
+Reserved word: else
+Separator: {
+Identifier: max
+Operator: =
+Identifier: number2
+Separator: }
+Reserved word: test
+Separator: (
+Identifier: number3
+Operator: >
+Identifier: max
+Separator: )
+Separator: {
+Identifier: max
+Operator: =
+Identifier: number3
+Separator: }
+Reserved word: write
+Identifier: max
+Symbol table:
+0 - number1
+1 - number2
+2 - number3
+3 - max
+PIF:
+int - 0
+identifier - 0
+int - 0
+identifier - 1
+int - 0
+identifier - 2
+int - 0
+identifier - 3
+read - 0
+identifier - 0
+read - 0
+identifier - 1
+read - 0
+identifier - 2
+test - 0
+( - 0
+identifier - 0
+> - 0
+identifier - 1
+) - 0
+{ - 0
+identifier - 3
+= - 0
+identifier - 0
+} - 0
+else - 0
+{ - 0
+identifier - 3
+= - 0
+identifier - 1
+} - 0
+test - 0
+( - 0
+identifier - 2
+> - 0
+identifier - 3
+) - 0
+{ - 0
+identifier - 3
+= - 0
+identifier - 2
+} - 0
+write - 0
+identifier - 3
