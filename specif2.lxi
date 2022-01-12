@@ -110,11 +110,11 @@ int main (int argc, char **argv)
     yyin = stdin;
     yylex();
 
-    printf("Symbol table:\n");
+    printf("\nSymbol table:\n");
     for (int i=0;i<lastST;i++) {
         printf("%d - %s\n", i, ST[i]);
     }
-    printf("PIF:\n");
+    printf("\nPIF:\n");
     for (int i=0;i<lastPIF;i++) {
         printf("%s - %d\n", PIF[i]+1, PIF[i][0]);
     }
