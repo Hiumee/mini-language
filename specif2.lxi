@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include "y.tab.h"
 
 int lines = 1;
 int lastST = 0;
@@ -58,41 +59,33 @@ CONSTANT {STRING}|{NUMBER}|{BOOL_CONSTANT}
 
 {COMMENT} { }
 
-"bool" { addToPIF(yytext); printf("Type: %s\n", yytext); }
-"int" { addToPIF(yytext); printf("Type: %s\n", yytext); }
-"char" { addToPIF(yytext); printf("Type: %s\n", yytext); }
-"str" { addToPIF(yytext); printf("Type: %s\n", yytext); }
-"list" { addToPIF(yytext); printf("Type: %s\n", yytext); }
+"bool" { addToPIF(yytext); printf("Type: %s\n", yytext); return BOOL; }
+"int" { addToPIF(yytext); printf("Type: %s\n", yytext); return INT; }
+"char" { addToPIF(yytext); printf("Type: %s\n", yytext); return CHAR; }
+"str" { addToPIF(yytext); printf("Type: %s\n", yytext); return STRING; }
+"list" { addToPIF(yytext); printf("Type: %s\n", yytext); return LIST;}
 
-"test" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); }
-"while" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); }
-"else" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); }
-"read" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); }
-"write" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); }
+"test" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); return TEST; }
+"while" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); return WHILE; }
+"else" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); return ELSE; }
+"read" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); return READ; }
+"write" { addToPIF(yytext); printf("Reserved word: %s\n", yytext); return WRITE; }
 
-"(" { addToPIF(yytext); printf("Separator: %s\n", yytext); }
-")" { addToPIF(yytext); printf("Separator: %s\n", yytext); }
-"{" { addToPIF(yytext); printf("Separator: %s\n", yytext); }
-"}" { addToPIF(yytext); printf("Separator: %s\n", yytext); }
-"]" { addToPIF(yytext); printf("Separator: %s\n", yytext); }
-"[" { addToPIF(yytext); printf("Separator: %s\n", yytext); }
+"-" { addToPIF(yytext); printf("Operator: %s\n", yytext); return MINUS;}
+"+" { addToPIF(yytext); printf("Operator: %s\n", yytext); return PLUS;}
+"*" { addToPIF(yytext); printf("Operator: %s\n", yytext); return MUL;}
+"/" { addToPIF(yytext); printf("Operator: %s\n", yytext); return DIV;}
+"=" { addToPIF(yytext); printf("Operator: %s\n", yytext); return EQ;}
+"<" { addToPIF(yytext); printf("Operator: %s\n", yytext); return LT;}
+">" { addToPIF(yytext); printf("Operator: %s\n", yytext); return GR;}
+"{" { addToPIF(yytext); printf("Operator: %s\n", yytext); return LEFT_SQ;}
+"}" { addToPIF(yytext); printf("Operator: %s\n", yytext); return RIGHT_SQ;}
+"(" { addToPIF(yytext); printf("Operator: %s\n", yytext); return SEPARATOR_LP;}
+")" { addToPIF(yytext); printf("Operator: %s\n", yytext); return SEPARATOR_RP;}
 
-"<>" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"==" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-">=" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"<=" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"-" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"+" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"*" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"/" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"=" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"<" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-">" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"and" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
-"or" { addToPIF(yytext); printf("Operator: %s\n", yytext); }
 
-{IDENTIFIER}  { addToST(yytext); addToPIFid(yytext); printf("Identifier: %s\n", yytext); }
-{CONSTANT}    { addToST(yytext); addToPIFid(yytext); printf("Constant: %s\n", yytext); }
+{IDENTIFIER}  { addToST(yytext); addToPIFid(yytext); printf("Identifier: %s\n", yytext); return IDENTIFIER; }
+{CONSTANT}    { addToST(yytext); addToPIFid(yytext); printf("Constant: %s\n", yytext); return CONSTANT; }
 
 [ \t]                       { }
 [\n]                        { lines++; }
@@ -101,7 +94,7 @@ CONSTANT {STRING}|{NUMBER}|{BOOL_CONSTANT}
 
 %%
 
-int main (int argc, char **argv)
+/* int main (int argc, char **argv)
 {
     ++argv, --argc;
     if (argc > 0)
@@ -118,4 +111,4 @@ int main (int argc, char **argv)
     for (int i=0;i<lastPIF;i++) {
         printf("%s - %d\n", PIF[i]+1, PIF[i][0]);
     }
-}
+} */
